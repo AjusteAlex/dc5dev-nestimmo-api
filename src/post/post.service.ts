@@ -26,25 +26,12 @@ export class PostService {
     }
   }
 
-  findAll() {
-    const postList = this.postRepository.createQueryBuilder('post').getMany();
-    return postList;
+  findAll(): Promise<PostEntity[]> {
+    return this.postRepository.find({ relations: ['category'] });
   }
 
-  findOne(id: number) {
-    try {
-      const post = this.postRepository.createQueryBuilder('post')
-        .where('post.id = :id', { id: id })
-        .getOne();
-
-        return post;
-    } catch (error) {
-      throw new HttpException(
-        error.message,
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
-    }
-
+  findOne(id: number): Promise<PostEntity> {
+    return this.postRepository.findOne({ where: {id},relations: ['category'] });
   }
 
   update(id: number, updatePostDto: UpdatePostDto) {
