@@ -1,17 +1,17 @@
-import { Category } from "src/category/entities/category.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Category } from 'src/category/entities/category.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity("post")
+@Entity('post')
 export class PostEntity {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    title: string;
+  @Column()
+  title: string;
 
-    @Column({ type: "text" })
-    description: string;
+  @Column({ type: 'text' })
+  description: string;
 
-    @ManyToOne(() => Category, category => category.posts)
-    category: Category;
+  @ManyToOne(() => Category, (category) => category.posts)
+  category: Category;
 }
